@@ -11,6 +11,10 @@ import qualified Network.HTTP.Client as HTTPClient
 import Network.Wreq
 import Text.Printf (printf)
 
+mkUrls :: String -> Int -> [String]
+mkUrls url lowerBound =
+  [printf url n | n <- [lowerBound ..]]
+
 tryGet url =
   do
     r <- get url
@@ -18,23 +22,21 @@ tryGet url =
     `E.catch` \(e :: HTTPClient.HttpException) -> return Nothing
 
 downloadAll =
-  go 21
+  -- 1 - 20
+  -- let urls = mkUrls "https://perry-rhodan.net/sites/default/files/downloads/neo%d_1920x1080_0.jpg" 1
+  -- 21 - 30
+  let urls = mkUrls "https://perry-rhodan.net/sites/default/files/downloads/wp_neo_%d_1920x1080_0.jpg" 21
+   in go urls
   where
-    go :: Int -> IO ()
-    go n =
+    go [] = return ()
+    go (u : rest) =
       do
-        -- 1 - 20
-        -- let url = printf "https://perry-rhodan.net/sites/default/files/downloads/neo%d_1920x1080_0.jpg" n
-
-        -- 21 - 30
-        let url = printf "https://perry-rhodan.net/sites/default/files/downloads/wp_neo_%d_1920x1080_0.jpg" n
-
-        r <- tryGet url
+        r <- tryGet u
         case r of
-          Nothing -> putStrLn $ "download failed for n = " ++ show n ++ "\nStopping"
+          Nothing -> putStrLn $ "download failed for " ++ show u ++ "\nStopping"
           Just body ->
             do
-              let filename = last $ splitOn ['/'] url
+              let filename = last $ splitOn ['/'] u
               action <- B.writeFile filename body
               putStrLn $ "downloaded " ++ filename
-              go (succ n)
+              go rest
