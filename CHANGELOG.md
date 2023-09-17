@@ -1,4 +1,4 @@
-# Revision history for perryloader
+# Revision history for PerryWpLoader
 
 ## 0.1.0.0 -- YYYY-mm-dd
 

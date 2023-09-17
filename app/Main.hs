@@ -1,6 +1,6 @@
 module Main where
 
-import qualified MyLib (downloadAll)
+import qualified Loader (downloadAll)
 
 main = do
-  MyLib.downloadAll
+  Loader.downloadAll

@@ -1,5 +1,5 @@
 cabal-version:      2.4
-name:               perryloader
+name:               PerryWpLoader
 version:            0.1.0.0
 
 -- A short (one-line) description of the package.
@@ -22,7 +22,7 @@ maintainer:         dawedawe@posteo.de
 extra-source-files: CHANGELOG.md
 
 library
-    exposed-modules:  MyLib
+    exposed-modules:  Loader
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -38,7 +38,7 @@ library
     hs-source-dirs:   src
     default-language: Haskell2010
 
-executable perryloader
+executable PerryWpLoader
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
@@ -48,7 +48,7 @@ executable perryloader
     -- other-extensions:
     build-depends:
         base ^>=4.16.4.0,
-        perryloader
+        PerryWpLoader
 
     hs-source-dirs:   app
     default-language: Haskell2010
