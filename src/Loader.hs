@@ -74,10 +74,4 @@ downloadAll =
           mkUrls "https://perry-rhodan.net/sites/default/files/downloads/wp_pr_neo%d_0.jpg" 281, -- 281 - 283
           mkUrls "https://perry-rhodan.net/sites/default/files/downloads/wp_pr_neo%d.jpg" 284 -- 284 - 313
         ]
-   in go urlMakers
-  where
-    go [] = return ()
-    go (maker : rest) =
-      do
-        downloadUrls maker
-        go rest
+   in mapM_ downloadUrls urlMakers
